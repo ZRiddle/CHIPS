@@ -28,12 +28,12 @@ model = FileStorage().load_pickle('titanic', 'model')
 def score(data):
     # Out model takes: ['Age', 'SibSp', 'Fare']
     # Parse and clean data
-    x = np.array(data['Age'], data['SibSp'], data['Fare'])
+    x = np.array([[data['Age'], data['SibSp'], data['Fare']]])
 
     # should probably handle NAs
 
-    # need to reformat for single row prediction and only return the 1st element
-    return model.predict_proba(x[1].reshape(1, -1))[1]
+    # return looks like [[0.2, 0.8]], we only want the 0.8
+    return model.predict_proba(x)[0][1]
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
