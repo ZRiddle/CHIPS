@@ -20,12 +20,12 @@ class FileStorage(object):
         dir = directory + '/' + filename + '.pkl'
         logging.info("Saving pkl: {}".format(dir))
         blob = self.bucket.blob(dir)
-        blob.upload_from_file(pickle.dump(obj))
+        blob.upload_from_string(pickle.dumps(obj))
         return
 
     def load_pickle(self, directory, filename):
         dir = directory + '/' + filename + '.pkl'
         logging.info("Loading pkl: {}".format(dir))
         blob = self.bucket.blob(dir)
-        obj = pickle.load(blob.download_as_file())
+        obj = pickle.loads(blob.download_as_string())
         return obj

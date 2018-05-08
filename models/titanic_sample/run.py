@@ -10,7 +10,7 @@ import logging
 # TODO - make debug config driven
 logging.basicConfig(
     level=logging.DEBUG,
-    format='[%(asctime)s] [%(levelname)s] %(message)s',
+    format='[%(asctime)s] [Titanic] [%(levelname)s] %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S')
 
 
@@ -28,7 +28,7 @@ model = FileStorage().load_pickle('titanic', 'model')
 def score(data):
     # Out model takes: ['Age', 'SibSp', 'Fare']
     # Parse and clean data
-    x = np.array(data.Age, data.SibSp, data.Fare)
+    x = np.array(data['Age'], data['SibSp'], data['Fare'])
 
     # should probably handle NAs
 
@@ -50,11 +50,16 @@ def call_model():
     """
 
     if request.method == 'GET':
-        return Response("Titanic Model", status=200)
+        return Response("Titanic model is ready", status=200)
 
     else:
-        data = request.data
+        data = request.get_json()
+        logging.info("new POST request")
+        logging.info(data)
+
         s = score(data)
+        logging.info("Model Score = {}".format(s))
+
         output = {
             "Probability": s,
             "Prediction": 0 if s < 0.5 else 1,

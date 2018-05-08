@@ -23,5 +23,6 @@ clf = RandomForestClassifier()
 clf.fit(X, y)
 
 # Save out model as pkl file
-with open('model.pkl', 'wb') as f:
+with open('model2.pkl', 'wb') as f:
     pickle.dump(clf, f)
+
