@@ -59,5 +59,14 @@ This will be a simple script, file, or process to save pkl files into the cloud 
 - Understand logging and debugging
 - Figure out real-time monitoring and alerts
 - Figure out auto-scaling settings and how to monitor cost
-- Figure out QA and testing environments
+- Figure out dev and QA environments for testing
+- Setup prog repo
+    - Create repo
+    - Setup permissions
+    - Define model deployment
+- Setup on prog Google cloud account or transfer to AWS
+    - Need to create account
+    - Need to figure out permissions for Dev/QA/Prod
+    - Need to figure out change control/deployment process
+    - Need to define 
 
