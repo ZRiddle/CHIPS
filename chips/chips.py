@@ -1,6 +1,14 @@
 # chips/chips.py
 import logging
-from flask import request
+import requests
+
+HOST_URL = "prog-chips.appspot.com"
+
+
+def _create_url(name):
+    url = "https://{}-dot-{}".format(name, HOST_URL)
+    logging.info("formatting url: {}".format(url))
+    return url
 
 
 def get_model_score(model_name, data):
@@ -14,8 +22,10 @@ def get_model_score(model_name, data):
 
     logging.info("get_model_score for model: {}".format(model_name))
     # TODO - add code here
+    url = _create_url(model_name)
+    res = requests.post(url, data=data)
 
-    return
+    return res.json()
 
 
 def get_model_heartbeat(model_name):
@@ -27,5 +37,10 @@ def get_model_heartbeat(model_name):
 
     logging.info("get_model_heartbeat for model: {}".format(model_name))
     # TODO - add code here
+    url = _create_url(model_name)
+    res = requests.get(url)
 
-    return
+    return res.json()
+
+if __name__ == '__main__':
+    pass

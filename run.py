@@ -1,5 +1,5 @@
 # run.py
-from flask import request
+from flask import request, Response, render_template, Flask
 import chips
 import config
 
@@ -11,7 +11,13 @@ logging.basicConfig(
     format='[%(asctime)s] [%(levelname)s] %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S')
 
-app = chips.create_app(config)
+app = Flask(__name__)
+
+
+# TODO - Default page
+@app.route('/')
+def default():
+    return render_template("index.html")
 
 
 @app.route('/<model_name>', methods=['GET', 'POST'])
@@ -20,17 +26,24 @@ def call_model(model_name):
     GET checks if the model service is alive
     POST pings the model service for a score
     """
+    logging.info("Request for model: {}".format(model_name))
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         data = request.data
         return chips.get_model_score(model_name, data)
 
-    elif request.method == 'POST':
+    elif request.method == 'GET':
         return chips.get_model_heartbeat(model_name)
+        #return chips.get_model_heartbeat(model_name)
 
     else:
         # return error
-        return
+        response = Response(
+            "Only POST and GET are supported",
+            status='501',
+            mimetype='application/json'
+        )
+        return response
 
 
 if __name__ == '__main__':
