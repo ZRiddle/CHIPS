@@ -35,9 +35,9 @@ We will whitelist the right IPs so that we can control who pings our service
 
 This is a simple front end that routes to the appropriate model microservice.
 
-Ex: POST request to https://chips.ai/model1
+Ex: POST request to https://chips.progleasing.com/test_model
 
-This will forward the request to the `model1` service for scoring
+This will forward the request to the `test_model` service for scoring
 
 ### Model instances
 
@@ -63,10 +63,11 @@ This will be a simple script, file, or process to save pkl files into the cloud 
 - Setup prog repo
     - Create repo
     - Setup permissions
-    - Define model deployment
+    - Define model deployment and new endpoint creation
 - Setup on prog Google cloud account or transfer to AWS
-    - Need to create account
-    - Need to figure out permissions for Dev/QA/Prod
-    - Need to figure out change control/deployment process
-    - Need to define 
+    - Create company cloud account
+    - Figure out permissions for Dev/QA/Prod
+    - Figure out change control/deployment process
+    - Need to define sign-off and QA process
+    - Need to figure out price estimates
 
