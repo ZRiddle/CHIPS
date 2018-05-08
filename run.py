@@ -2,13 +2,14 @@
 from flask import request, Response, render_template, Flask
 import chips
 import config
+import json
 
 # Logging setup
 import logging
 
 logging.basicConfig(
     level=config.LOGGING_LEVEL,
-    format='[%(asctime)s] [%(levelname)s] %(message)s',
+    format='[%(asctime)s] [CHIPS] [%(levelname)s] %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S')
 
 app = Flask(__name__)
@@ -29,8 +30,14 @@ def call_model(model_name):
     logging.info("Request for model: {}".format(model_name))
 
     if request.method == 'POST':
-        data = request.data
-        return chips.get_model_score(model_name, data)
+        data = request.get_json()
+        res = chips.get_model_score(model_name, data)
+
+        return Response(
+            response=json.dumps(res),
+            status=200,
+            content_type='application/json'
+        )
 
     elif request.method == 'GET':
         return chips.get_model_heartbeat(model_name)

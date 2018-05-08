@@ -23,7 +23,10 @@ def get_model_score(model_name, data):
     logging.info("get_model_score for model: {}".format(model_name))
     # TODO - add code here
     url = _create_url(model_name)
-    res = requests.post(url, data=data)
+    headers = {'Content-type': 'application/json'}
+
+    res = requests.post(url, json=data, headers=headers)
+    logging.info("Response from {}: {}".format(model_name, res.json()))
 
     return res.json()
 
