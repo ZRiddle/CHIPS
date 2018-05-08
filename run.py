@@ -3,7 +3,6 @@ from flask import request, Response, render_template, Flask
 import chips
 import config
 
-
 # Logging setup
 import logging
 
@@ -27,13 +26,14 @@ def call_model(model_name):
     GET checks if the model service is alive
     POST pings the model service for a score
     """
+    logging.info("Request for model: {}".format(model_name))
 
     if request.method == 'POST':
         data = request.data
         return chips.get_model_score(model_name, data)
 
     elif request.method == 'GET':
-        return render_template("index.html")
+        return chips.get_model_heartbeat(model_name)
         #return chips.get_model_heartbeat(model_name)
 
     else:

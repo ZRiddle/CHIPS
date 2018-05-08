@@ -1,2 +1,2 @@
 # chips/__init__.py
-from . import *
+from chips.chips import *

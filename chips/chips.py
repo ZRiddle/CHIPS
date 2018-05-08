@@ -6,7 +6,9 @@ HOST_URL = "prog-chips.appspot.com"
 
 
 def _create_url(name):
-    return "https://{}-dot-{}".format(name, HOST_URL)
+    url = "https://{}-dot-{}".format(name, HOST_URL)
+    logging.info("formatting url: {}".format(url))
+    return url
 
 
 def get_model_score(model_name, data):
@@ -39,3 +41,6 @@ def get_model_heartbeat(model_name):
     res = requests.get(url)
 
     return res.json()
+
+if __name__ == '__main__':
+    pass
